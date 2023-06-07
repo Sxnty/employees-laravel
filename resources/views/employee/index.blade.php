@@ -8,8 +8,14 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
@@ -40,14 +46,24 @@
                         <td>{{ $employee->surname }}</td>
                         <td>{{ $employee->email }}</td>
                         <td>{{ $employee->phoneNumber }}</td>
-                        <td>Edit |
-
-                            <form action="{{ url('/employee/' . $employee->id) }}" method="POST">
-                                @csrf
-                                {{ method_field('DELETE') }}
-                                <input type="submit" value="Delete" class="btn btn-danger">
-                            </form>
-
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Actions
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <form action="{{ url('/employee/' . $employee->id . '/edit') }}" method="GET">
+                                        @csrf
+                                        <input type="submit" value="Edit" class="btn btn-link ">
+                                    </form>
+                                    <form action="{{ url('/employee/' . $employee->id) }}" method="POST">
+                                        @csrf
+                                        {{ method_field('DELETE') }}
+                                        <input type="submit" value="Delete" class="btn btn-link">
+                                    </form>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
