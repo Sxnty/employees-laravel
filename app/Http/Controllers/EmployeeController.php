@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
@@ -79,32 +80,41 @@ class EmployeeController extends Controller
         $request->validate([
             'firstname' => 'required|string',
             'surname' => 'required|string',
-            'email' => 'required|email|unique:employees,email,'.$id,
+            'email' => 'required|email|unique:employees,email,' . $id,
             'phoneNumber' => 'required|numeric',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-    
+
         $employeeData = $request->except('_token', '_method');
+
+        if ($request->hasFile('photo')) {
+            $employeeID = Employee::findOrFail($id);
+            Storage::delete('public/' . $employeeID->id);
+            $employeeData['photo'] = $request->file('photo')->store('uploads', 'public');
+        }
+
+
         $employeeData['phoneNumber'] = intval($request->input('phoneNumber'));
-    
+
         Employee::where('id', $id)->update($employeeData);
 
-    
+
         $employeeFind = Employee::findOrFail($id);
         $data['employees'] = Employee::paginate(5);
-        
-        return redirect('employee');
 
+        return redirect('employee');
     }
-    
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
     {
-        //
-        Employee::destroy($id);
+        $employeeID = Employee::findOrFail($id);
+        if (Storage::delete('public/' . $employeeID->photo)) {
+            Employee::destroy($id);
+        }
         return redirect('employee');
     }
 }
