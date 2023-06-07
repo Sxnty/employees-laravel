@@ -22,12 +22,20 @@
 </head>
 
 <body>
-    <main class="m-5">
-        <div class="d-flex align-items-center justify-content-between">
-            <h1 class="my-5">Employees list</h1>
-            <form action="{{ url('/employee/create') }}" method="GET">
-                <button type="submit" class="btn btn-primary mx-1">Add employee</button>
-            </form>
+    <main class="m-5" d-flex>
+        @if (session('message'))
+            <div class="alert alert-success" role="alert w-100">
+                {{ session('message') }}
+            </div>
+        @endif
+        <div class="d-flex align-items-center justify-content-between flex-column">
+            <div class="d-flex align-items-center justify-content-between w-100">
+                <h1 class="my-5">Employees list</h1>
+                <form action="{{ url('/employee/create') }}" method="GET">
+                    <button type="submit" class="btn btn-primary mx-1">Add employee</button>
+                </form>
+            </div>
+
         </div>
         <table class="table table-light ">
             <thead class="thead-light">
@@ -47,7 +55,8 @@
                     <tr d-flex class="align-items-center">
                         <td>{{ $employee->id }}</td>
                         <td>
-                            <img src="{{ asset('storage') . '/' . $employee->photo }}" alt="" style="width: 8rem" class="rounded">
+                            <img src="{{ asset('storage') . '/' . $employee->photo }}" alt=""
+                                style="width: 8rem" class="rounded">
                         </td>
                         <td>{{ $employee->firstname }}</td>
                         <td>{{ $employee->surname }}</td>

@@ -50,7 +50,8 @@ class EmployeeController extends Controller
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         Employee::insert($employeeData);
-        return response()->json($employeeData);
+        return redirect('employee')->with('message', 'Created successfully');
+
     }
 
     /**
@@ -102,7 +103,8 @@ class EmployeeController extends Controller
         $employeeFind = Employee::findOrFail($id);
         $data['employees'] = Employee::paginate(5);
 
-        return redirect('employee');
+        return redirect('employee')->with('message', 'Updated successfully');
+
     }
 
 
@@ -115,6 +117,6 @@ class EmployeeController extends Controller
         if (Storage::delete('public/' . $employeeID->photo)) {
             Employee::destroy($id);
         }
-        return redirect('employee');
+        return redirect('employee')->with('message', 'Deleted successfully');
     }
 }
