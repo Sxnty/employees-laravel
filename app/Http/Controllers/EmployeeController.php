@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class EmployeeController extends Controller
 {
@@ -12,8 +13,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $data['employees']=Employee::paginate(5);
-        
+        $data['employees'] = Employee::paginate(5);
+
         return view('employee.index', $data);
     }
 
@@ -33,8 +34,8 @@ class EmployeeController extends Controller
         //
         $employeeData = request()->except('_token');
 
-        if($request->hasFile('photo')){
-            $employeeData['photo']=$request->file('photo')->store('uploads', 'public');
+        if ($request->hasFile('photo')) {
+            $employeeData['photo'] = $request->file('photo')->store('uploads', 'public');
         }
 
         $request->merge([
@@ -62,18 +63,40 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Employee $employee)
+    public function edit($id)
     {
         //
+        $employee = Employee::findOrFail($id);
+
+        return view('employee.edit', compact('employee'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Employee $employee)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'firstname' => 'required|string',
+            'surname' => 'required|string',
+            'email' => 'required|email|unique:employees,email,'.$id,
+            'phoneNumber' => 'required|numeric',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+    
+        $employeeData = $request->except('_token', '_method');
+        $employeeData['phoneNumber'] = intval($request->input('phoneNumber'));
+    
+        Employee::where('id', $id)->update($employeeData);
+
+    
+        $employeeFind = Employee::findOrFail($id);
+        $data['employees'] = Employee::paginate(5);
+        
+        return redirect('employee');
+
     }
+    
 
     /**
      * Remove the specified resource from storage.
