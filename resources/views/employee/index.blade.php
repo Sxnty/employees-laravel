@@ -21,12 +21,12 @@
             <thead class="thead-light">
                 <tr>
                     <th>#</th>
-                    <th>Photo</th>
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
-                    <th>Actions</th>
+                    <th> <i class="bi bi-camera-fill"></i> Photo</th>
+                    <th> <i class="bi bi-person-fill"></i> Name</th>
+                    <th> <i class="bi bi-person-fill"></i> Surname</th>
+                    <th> <i class="bi bi-envelope-fill"></i> Email</th>
+                    <th> <i class="bi bi-telephone-fill"></i> Phone Number</th>
+                    <th> <i class="bi bi-arrow-down-circle-fill"></i> Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,6 +48,7 @@
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    
                                     Actions
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

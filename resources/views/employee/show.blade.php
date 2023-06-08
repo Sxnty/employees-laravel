@@ -1,7 +1,7 @@
 @extends('layouts.app')
 <main class="w-25 m-auto h-100 d-flex justify-content-center flex-column m-auto">
-    <section class="heading d-flex align-items-center">
-        <img src="{{ asset('storage') . '/' . $employee->photo }}" alt="" style="width: 8rem" class="rounded">
+    <section class="heading d-flex align-items-center flex-column">
+        <img src="{{ asset('storage') . '/' . $employee->photo }}" alt="" style="width: 15rem;" class="rounded my-2">
         <div class="heading__text d-flex flex-column align-items-center">
             <h2 class="mx-2">{{ $employee->firstname }} {{ $employee->surname }}</h2>
             <p class="mx-2 my-0">Identificator: {{ $employee->id }}</p>
