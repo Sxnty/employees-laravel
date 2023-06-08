@@ -21,7 +21,20 @@
     <input class="form-control" placeholder="Enter phone number" type="number" name="phoneNumber" id=""
         value="{{ isset($employee) ? $employee->phoneNumber : '' }}" />
 </div>
-
+<div class="form-group">
+    <label for="address">Adress</label>
+    <input class="form-control" placeholder="Enter address" type="text" name="address" id=""
+        value="{{ isset($employee) ? $employee->address : '' }}" />
+</div>
+<div class="form-group">
+    <label for="phoneNumber">Salary</label>
+    <input class="form-control" placeholder="Enter employee salary" type="number" name="salary" id=""
+        value="{{ isset($employee) ? $employee->salary : '' }}" />
+</div>
+<div class="form-group">
+    <label for="exampleFormControlTextarea1">Extra information</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" value="{{ isset($employee) ? $employee->note : '' }}" placeholder="Employee note" style="resize: none" name="employeeNote"></textarea>
+  </div>
 <div class="form-group">
     <label for="photo">Photo</label>
     <input class="form-control" type="file" name="photo" id=""
