@@ -34,13 +34,13 @@ class EmployeeController extends Controller
     {
         //
         $employeeData = request()->except('_token');
-
         if ($request->hasFile('photo')) {
             $employeeData['photo'] = $request->file('photo')->store('uploads', 'public');
         }
 
         $request->merge([
             'phoneNumber' => intval($request->input('phoneNumber')),
+            'salary' => intval($request->input('salary')),
         ]);
         $request->validate([
             'firstname' => 'required|string',
@@ -48,8 +48,11 @@ class EmployeeController extends Controller
             'email' => 'required|email|unique:employees',
             'phoneNumber' => 'required|numeric',
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'address' => 'required|string',
+            'employeeNote' => 'required|string',
+            'salary' => 'required|numeric',
         ]);
-        Employee::insert($employeeData);
+        Employee::create($employeeData);
         return redirect('employee')->with('message', 'Created successfully');
 
     }
