@@ -15,6 +15,6 @@
     <h1>Create Employee</h1>
     <form action="{{ url('/employee') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @include('employee.form')
+        @include('employee.form', ['mode'=>'Create'])
     </form>
 </main>

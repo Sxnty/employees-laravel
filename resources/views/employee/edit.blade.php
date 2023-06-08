@@ -16,7 +16,7 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 <form action="{{url('employee/'.$employee->id)}}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PATCH')
-    @include('employee.form')
+    @include('employee.form', ['mode'=>'Edit'])
 </form>
 
 </main>

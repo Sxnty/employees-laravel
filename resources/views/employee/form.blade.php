@@ -28,6 +28,6 @@
         value="{{ isset($employee) ? $employee->photo : '' }}" />
 </div>
 <div class="d-flex w-100  align-items-center">
-    <input type="submit" value="Add employee" class="btn btn-primary mt-5 ">
+    <input type="submit" value="{{$mode}} employee" class="btn btn-primary mt-5 ">
     <a href="{{ url('/employee') }}" class="btn btn-secondary d-flex align-items-center justify-content-center mt-5 mx-5 ">Go Back</a>
 </div>
