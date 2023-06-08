@@ -33,7 +33,9 @@
 
                 @foreach ($employees as $employee)
                     <tr d-flex class="align-items-center">
-                        <td>{{ $employee->id }}</td>
+                        
+                        <td>
+                            <a href="{{ url('/employee/' . $employee->id . '/edit') }}">{{ $employee->id }}</a></td>
                         <td>
                             <img src="{{ asset('storage') . '/' . $employee->photo }}" alt=""
                                 style="width: 8rem" class="rounded">
